@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 // minimal OpenTK rendering framework for UU/INFOGR
 // Jacco Bikker, 2016
@@ -15,7 +17,11 @@ class Game
 	float a = 0;							// teapot rotation angle
 	Stopwatch timer;						// timer for measuring frame duration
 	Shader shader;							// shader to use for rendering
+	Shader postproc;						// shader to use for post processing
 	Texture wood;							// texture to use for rendering
+	RenderTarget target;					// intermediate render target
+	ScreenQuad quad;						// screen filling quad for post processing
+	bool useRenderTarget = true;
 
 	// initialize
 	public void Init()
@@ -29,8 +35,12 @@ class Game
 		timer.Start();
 		// create shaders
 		shader = new Shader( "../../shaders/vs.glsl", "../../shaders/fs.glsl" );
+		postproc = new Shader( "../../shaders/vs_post.glsl", "../../shaders/fs_post.glsl" );
 		// load a texture
 		wood = new Texture( "../../assets/wood.jpg" );
+		// create the render target
+		target = new RenderTarget( screen.width, screen.height );
+		quad = new ScreenQuad();
 	}
 
 	// tick for background surface
@@ -57,9 +67,25 @@ class Game
 		a += 0.001f * frameDuration; 
 		if (a > 2 * PI) a -= 2 * PI;
 
-		// render scene
-		mesh.Render( shader, transform, wood );
-		floor.Render( shader, transform, wood );
+		if (useRenderTarget)
+		{
+			// enable render target
+			target.Bind();
+
+			// render scene to render target
+			mesh.Render( shader, transform, wood );
+			floor.Render( shader, transform, wood );
+
+			// render quad
+			target.Unbind();
+			quad.Render( postproc, target.GetTextureID() );
+		}
+		else
+		{
+			// render scene directly to the screen
+			mesh.Render( shader, transform, wood );
+			floor.Render( shader, transform, wood );
+		}
 	}
 }
 
