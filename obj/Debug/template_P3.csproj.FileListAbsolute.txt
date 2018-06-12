@@ -1,0 +1,7 @@
+C:\Users\sjors\Source\Repos\Y2Graphics3\bin\Debug\template_P3.exe.config
+C:\Users\sjors\Source\Repos\Y2Graphics3\bin\Debug\template_P3.exe
+C:\Users\sjors\Source\Repos\Y2Graphics3\bin\Debug\template_P3.pdb
+C:\Users\sjors\Source\Repos\Y2Graphics3\bin\Debug\OpenTK.dll
+C:\Users\sjors\Source\Repos\Y2Graphics3\obj\Debug\template_P3.csprojResolveAssemblyReference.cache
+C:\Users\sjors\Source\Repos\Y2Graphics3\obj\Debug\template_P3.exe
+C:\Users\sjors\Source\Repos\Y2Graphics3\obj\Debug\template_P3.pdb
