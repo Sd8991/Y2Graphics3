@@ -26,10 +26,6 @@ class Game
 	// initialize
 	public void Init()
 	{
-            // set the light 
-            //int lightID = GL.GetUniformLocation( shader.programID, "lightPos" );
-            //GL.UseProgram( shader.programID );
-            //GL.Uniform3( lightID, 0.0f, 10.0f, 0.0f );
             // load teapot
             mesh = new Mesh( "../../assets/teapot.obj" );
 		floor = new Mesh( "../../assets/floor.obj" );
@@ -45,7 +41,11 @@ class Game
 		// create the render target
 		target = new RenderTarget( screen.width, screen.height );
 		quad = new ScreenQuad();
-	}
+        // set the light 
+        int lightID = GL.GetUniformLocation(shader.programID, "lightPos");
+        GL.UseProgram(shader.programID);
+        GL.Uniform3(lightID, 20.0f, 20.0f, 10.0f);
+    }
 
 	// tick for background surface
 	public void Tick()
