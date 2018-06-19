@@ -17,7 +17,7 @@ out vec4 outputColor;
 void main()
 {
 	vec3 L = lightPos - worldPos.xyz;
-	vec3 R = normalize(reflect(L, normal.xyz));
+	vec3 R = normalize(L - 2 * dot(L, normal.xyz) * normal.xyz);
 	vec3 C = normalize(worldPos.xyz);
 	float dist = L.length(); 
 	L = normalize( L ); 
